@@ -1,0 +1,15 @@
+package pinnar
+
+import (
+  "net/http"
+  "log"
+  
+)
+
+var Template = "/home/ubuntu/dev/src/services/pinnar/templates/"
+
+func StartServer(){
+  http.HandleFunc("/", BaseHandler)
+  log.Fatal(http.ListenAndServe(":9926", nil))
+
+}

@@ -1,0 +1,40 @@
+package api
+
+import (
+  "github.com/stretchrcom/goweb"
+  "github.com/stretchrcom/goweb/context"
+  //"net/url"
+  "fmt"
+  //"time"
+  //"db"
+)
+
+
+type TribeData struct {
+
+  People []string
+  Company []string
+  Links []string
+
+}
+type TribeController struct {
+  Datas []*TribeData
+}
+
+func (r *TribeController) Read(brand string, ctx context.Context) error{
+
+  rowname := ctx.HttpRequest().URL.RawQuery 
+  ctx.HttpResponseWriter().Header().Set("Access-Control-Allow-Origin", "*")  
+  
+
+  //newsclusters := db.ReadColumnsSimple("ice", "entitylist", rowname )  
+  
+  fmt.Println(rowname)
+  data := new(TribeData)
+  data.People = []string{"tom" , "mark"}
+  data.Company =[]string{"universum", "pronto" }
+  data.Links = []string{ "tom#universum" , "mark#universum" , "mark#pronto", "tom#pronto" }
+
+  return goweb.API.RespondWithData(ctx , data)
+
+}

@@ -1,0 +1,16 @@
+package main
+
+import (
+
+  "io/exec"
+  "fmt"
+)
+
+func main(){
+  cmd:= exec.Command("echo" , "testing")
+  stdout, err := cmd.StdoutPipe()
+  if err == nil {
+    fmt.Println(stdout)
+  }
+
+}

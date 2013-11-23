@@ -1,0 +1,326 @@
+package api
+
+import (
+
+  "db"
+  "strings"
+  "fmt"
+  "time"
+  "github.com/streadway/simpleuuid"
+  "encoding/json"
+  
+)
+
+type Content struct {
+
+  Likes_count string 
+  Share_count string
+  Post_id string
+  Post string
+  Share string
+
+}
+func GetFromJson(jsonstr string, name string) ( string ){
+  //fmt.Println(jsonstr)
+  
+  var content []Content
+  err := json.Unmarshal([]byte("["+ jsonstr + "]"), &content)  
+  if err != nil {
+     fmt.Println("error:", err)
+     return "x"
+  }
+  
+  switch name {
+    case "Post" : 
+      return content[0].Post
+    case "likes_count" :
+      return content[0].Likes_count
+    default :
+      return "x"
+  }
+  return "x"
+  
+ 
+}
+func GetMetricWindow(name string, values []string, columns []string, since time.Time , until time.Time)(data []string, timestamp []string) {
+
+  tstamp :=[]time.Time{}
+  count :=0
+  for i := range values {
+
+      testtime,_ := simpleuuid.NewString(columns[i])
+      recorded := testtime.Time()
+      //fmt.Println(recorded)
+      if recorded.After(until){
+
+        return
+
+      }
+      if recorded.After(since) {
+      //fmt.Println(recorded)
+
+      /*GetFromJson(values[i])
+      split := strings.Split(values[i],"\",\"")
+      split1 := strings.Split(split[2],"\"")*/
+      data =append(data, GetFromJson(values[i],name))
+      timestamp =append(timestamp,recorded.String())
+      tstamp = append(tstamp,recorded)
+      count = count +1
+      }
+
+
+   
+  } 
+  return
+
+}
+func GetFacebookPageLikes(id string, since time.Time, until time.Time)(data []string, timestamp []string){
+  
+  values := db.ReadValues("universum","FacebookStream",id)
+  columns := db.ReadColumns("universum","FacebookStream",id) 
+  
+  data, timestamp = GetMetricWindow("likes_count", values, columns, since, until)  
+  /*
+  tstamp :=[]time.Time{}
+  fmt.Println(since)
+  //data =[]string{"0"}
+  //timestamp=[]string{}
+  // values := db.ReadValues("universum","FacebookStream",id)
+  // columns := db.ReadColumns("universum","FacebookStream",id) 
+  //fmt.Println("the colum is below")
+  //fmt.Println(columns[0]) 
+  //fmt.Println(recorded.After(since))
+  count :=0
+  for i := range values {
+
+      testtime,_ := simpleuuid.NewString(columns[i])
+      recorded := testtime.Time()
+      //fmt.Println(recorded)
+      if recorded.After(until){
+
+        return
+
+      }
+      if recorded.After(since) {
+      //fmt.Println(recorded)
+
+      GetFromJson(values[i])
+      split := strings.Split(values[i],"\",\"")
+      split1 := strings.Split(split[2],"\"")
+      data =append(data, GetFromJson(values[i],"likes_count"))
+      timestamp =append(timestamp,recorded.String())
+      tstamp = append(tstamp,recorded)
+      count = count +1
+      }
+
+
+   
+  }  */
+ 
+ return
+}
+
+func GetPages(brandname string )(pages []string){
+  
+  values:= db.Read("universum","manualEntry",brandname)
+  fmt.Println("wowowo")
+  if (len(values)>0){
+    split := strings.Split(values[0],"\n")
+    for i:= range split {
+      split2 := strings.Split(split[i],"//")
+      if(len(split2) > 3){
+      pages = append(pages,split2[1],split2[0], split2[3], split2[2])
+      }
+    }
+
+  }
+ 
+  return
+
+}
+
+func GetFirstFacebookId(brandname string)(id string){
+  id = "40796308305"
+
+  values:= db.Read("universum","manualEntry",brandname)
+  fmt.Println("wowowo")
+  if (len(values)>0){
+    split := strings.Split(values[0],"\n")
+    for i:= range split {
+      split2 := strings.Split(split[i],"//")
+      if(len(split2)>3){
+        if(split2[0]=="FB:"){
+          id=split2[1]
+        }
+      }
+    }
+  }
+
+  return
+
+}
+func GetFirstLinkedinId(brandname string)(id string){
+  id = "1694"
+
+  values:= db.Read("universum","manualEntry",brandname)
+  fmt.Println("wowowo")
+  if (len(values)>0){
+    split := strings.Split(values[0],"\n")
+    for i:= range split {
+      split2 := strings.Split(split[i],"//")
+      if(len(split2)>3){
+        if(split2[0]=="IN:"){
+          id=split2[1]
+        }
+      }
+    }
+  }
+
+  return
+
+}
+func GetFirstTwitterId(brandname string)(id string){
+
+  id = "18881750"
+  values:= db.Read("universum","manualEntry",brandname)
+  
+  fmt.Println("wowowo")
+  if (len(values)>0){
+    split := strings.Split(values[0],"\n")
+    for i:= range split {
+      split2 := strings.Split(split[i],"//")
+      if(len(split2)>3){
+        if(split2[0]=="TW:"){
+          id=split2[1]
+        }
+      }
+    }
+  }
+
+  return
+
+}
+/*
+func ValidTime(timeinstring string, since time.Time, unitl time.Time)(valid bool){
+  fmt.Println("time processing here")
+  
+}*/
+
+
+func GetFacebookPageShare(id string)(data []string){
+ 
+  data =[]string{"0","0","0","0"}
+  values := db.ReadValues("universum","FacebookStream",id)
+ 
+  for i := range data{
+    if (i < len(values)) {
+      split := strings.Split(values[i],"\",\"")
+      split1 := strings.Split(split[3],"\"")
+      data[i]=split1[2]
+
+   }
+  } 
+
+  return
+}
+
+func GetFacebookPageComment(id string)(data []string){
+ 
+  data =[]string{"0","0","0","0"}
+  values := db.ReadValues("universum","FacebookStream",id)
+ 
+  for i := range data{
+    if (i < len(values)) {
+      split := strings.Split(values[i],"\",\"")
+      split1 := strings.Split(split[5],"\"")
+      data[i]=split1[2]
+
+   }
+  } 
+ 
+  return
+}
+
+func GetTwitterRetweets(id string)(twitter []string){
+
+  twitter =[]string{"0","0","0","0"}
+  valuesT := db.ReadValues("universum","TwitterUserTimeline",id)
+
+  count := -1
+  // count is set to iterate until 4
+  // for the latest 4 posts
+  currentid := "0"
+  for i := range valuesT{
+      //fmt.Println("current id : " + currentid + "\n")
+      split := strings.Split(valuesT[i],",")
+      split0 := strings.Split(split[0],"\"")
+      readid := split0[3]
+      if (readid != currentid){
+        count = count +1
+        currentid = readid
+
+        if( count < 4 ){
+                  fmt.Println(currentid)
+          split2 := strings.Split(split[1],"\"")
+          twitter[i]= split2[3]
+        }
+        if (count >4){
+        break
+       }
+      }
+
+ }
+  return 
+}
+
+func GetLinkedinFollowers(id string)(linkedin []string){
+
+  linkedin =[]string{"0","0","0","0"}
+  valuesL := db.ReadValues("universum","LinkedinCompanies",id)
+  for i := range linkedin{
+    if (i<len(valuesL)){
+    split := strings.Split(valuesL[i],",")
+    split2 :=	strings.Split(split[2],"\"")
+    linkedin[i]= split2[3]
+    //fmt.Printf(split2[3])
+    //split2 = strings.Split(split[1],"\"")
+    //social[0] = split2[3]
+    }
+  }
+  return
+  
+}
+func GetTwitterFollowers(id string)(twitter []string){
+ twitter =[]string{"0","0","0","0"}
+ valuesT := db.ReadValues("universum","TwitterUserShow",id)
+  for i := range twitter{
+    if(i<len(valuesT)){
+    split := strings.Split(valuesT[i],",")
+    split2 :=	strings.Split(split[2],"\"")
+    twitter[i]= split2[3]
+  }
+ }
+ return 
+}
+
+func GetFacebookLikes(id string)(facebook []string){
+  facebook =[]string{"0","0","0","0"}
+  valuesF := db.ReadValues("universum","FacebookPage",id)
+  for i := range facebook{
+   if (i < len(valuesF)) {
+    split := strings.Split(valuesF[i],",")
+    split2 :=	strings.Split(split[2],"\"")
+    facebook[i]= split2[3]
+    //name of the page.. in another function
+    //split2 = strings.Split(split[1],"\"")
+    
+    //fmt.Printf(split2[2])
+   }
+  } 
+  return
+
+}
+
+
+
+

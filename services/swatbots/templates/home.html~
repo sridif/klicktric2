@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>Exeger</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+ <!--link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600"/-->
+        <link rel="stylesheet" href="http://llinares.github.io/ring-progress-bar/ring.css"/>
+<style>
+svg {
+    width: 200px;
+    height: 200px; 
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    
+}
+input {
+    margin-top: 200px;
+}
+</style>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <!--div class="row"-->
+      
+
+<!-- First ring-->
+<a data-toggle="modal" href="#myModal" class="btn well col-md-4">     
+  <span class="label glyphicon glyphicon-certificate label-info">sp0</span>
+  <span class="label glyphicon glyphicon-phone label-info">sp1</span>  
+  <span class="label glyphicon glyphicon-flash label-info">sp2</span>
+
+  <svg>
+     <path id="ring" fill="#76B13C" />
+     <circle cx="100" cy="100" r="80" fill="#F7F6F4" />
+     <circle cx="100" cy="100" r="73" fill="none" stroke="#76B13C" stroke-width="7" opacity=".5" />
+     <text x="100" y="100" text-anchor="middle" dominant-baseline="central" fill="#76B13C" font-size="60" font-weight="bold">64</text>
+   </svg>
+   <input type="range" value="6" style="visibility:hidden;"/>            
+</a>
+
+<!-- Second ring-->
+<a data-toggle="modal" href="#myModal" class="btn well col-md-4">     
+  <span class="label glyphicon glyphicon-certificate label-info">sp3</span>
+  <span class="label glyphicon glyphicon-phone label-info">sp4</span>  
+  <span class="label glyphicon glyphicon-flash label-info">sp5</span>
+
+  <svg>
+     <path id="ring" fill="#76B13C" />
+     <circle cx="100" cy="100" r="80" fill="#F7F6F4" />
+     <circle cx="100" cy="100" r="73" fill="none" stroke="#76B13C" stroke-width="7" opacity=".5" />
+     <text x="100" y="100" text-anchor="middle" dominant-baseline="central" fill="#76B13C" font-size="60" font-weight="bold">64</text>
+   </svg>
+   <input type="range" value="6" style="visibility:hidden;"/>            
+</a>
+
+<!-- Third ring-->
+<a data-toggle="modal" href="#myModal" class="btn well col-md-4">     
+  <span class="label glyphicon glyphicon-certificate label-info">sp6</span>
+  <span class="label glyphicon glyphicon-phone label-info">sp7</span>  
+  <span class="label glyphicon glyphicon-flash label-info">sp8</span>
+
+  <svg>
+     <path id="ring" fill="#76B13C" />
+     <circle cx="100" cy="100" r="80" fill="#F7F6F4" />
+     <circle cx="100" cy="100" r="73" fill="none" stroke="#76B13C" stroke-width="7" opacity=".5" />
+     <text x="100" y="100" text-anchor="middle" dominant-baseline="central" fill="#76B13C" font-size="60" font-weight="bold">64</text>
+   </svg>
+   <input type="range" value="6" style="visibility:hidden;"/>            
+</a>
+
+
+<!--/div>
+<div class="row"-->
+
+<!-- 2- First ring-->
+<a data-toggle="modal" href="#myModal" class="btn well col-md-4">     
+  <span class="label glyphicon glyphicon-certificate label-info">sp9</span>
+  <span class="label glyphicon glyphicon-phone label-info">sp10</span>  
+  <span class="label glyphicon glyphicon-flash label-info">sp11</span>
+
+  <svg>
+     <path id="ring" fill="#76B13C" />
+     <circle cx="100" cy="100" r="80" fill="#F7F6F4" />
+     <circle cx="100" cy="100" r="73" fill="none" stroke="#76B13C" stroke-width="7" opacity=".5" />
+     <text x="100" y="100" text-anchor="middle" dominant-baseline="central" fill="#76B13C" font-size="60" font-weight="bold">64</text>
+   </svg>
+   <input type="range" value="6" style="visibility:hidden;"/>            
+</a>
+
+<!-- 2- Second ring-->
+<a data-toggle="modal" href="#myModal" class="btn well col-md-4">     
+  <span class="label glyphicon glyphicon-certificate label-info">sp12</span>
+  <span class="label glyphicon glyphicon-phone label-info">sp13</span>  
+  <span class="label glyphicon glyphicon-flash label-info">sp14</span>
+
+  <svg>
+     <path id="ring" fill="#76B13C" />
+     <circle cx="100" cy="100" r="80" fill="#F7F6F4" />
+     <circle cx="100" cy="100" r="73" fill="none" stroke="#76B13C" stroke-width="7" opacity=".5" />
+     <text x="100" y="100" text-anchor="middle" dominant-baseline="central" fill="#76B13C" font-size="60" font-weight="bold">64</text>
+   </svg>
+   <input type="range" value="6" style="visibility:hidden;"/>            
+</a>
+
+<!-- 2- Third ring-->
+<a data-toggle="modal" href="#myModal" class="btn well col-md-4">     
+  <span class="label glyphicon glyphicon-certificate label-info">sp15</span>
+  <span class="label glyphicon glyphicon-phone label-info">sp16</span>  
+  <span class="label glyphicon glyphicon-flash label-info">sp17</span>
+
+  <svg>
+     <path id="ring" fill="#76B13C" />
+     <circle cx="100" cy="100" r="80" fill="#F7F6F4" />
+     <circle cx="100" cy="100" r="73" fill="none" stroke="#76B13C" stroke-width="7" opacity=".5" />
+     <text x="100" y="100" text-anchor="middle" dominant-baseline="central" fill="#76B13C" font-size="60" font-weight="bold">64</text>
+   </svg>
+   <input type="range" value="6" style="visibility:hidden;"/>            
+</a>
+
+
+</div>
+<!--/div-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <div id="chart_div" style="width: 900px; height: 500px;"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://getbootstrap.com/dist/js/bootstrap.js"></script>
+<script src="http://platform.twitter.com/widgets.js"></script>
+<script src="http://getbootstrap.com/docs-assets/js/holder.js"></script>
+
+<script src="http://getbootstrap.com/docs-assets/js/application.js"></script>
+    <script type="text/javascript">
+    {{template "content"}}
+  
+      google.load("visualization", "1", {packages:["corechart"]});
+  
+      google.setOnLoadCallback(drawChart); 
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses'],
+          ['2004',  1000,      400],
+          ['2005',  1170,      460],
+          ['2006',  660,       1120],
+          ['2007',  1030,      540]
+        ]);
+
+        var options = {
+          title: 'Company Performance'
+        };
+ 
+
+      
+      
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
+    </script>
+
+    <script >
+
+function Loop2(){
+(function (window) {
+    'use strict';
+
+
+    function draw() {
+        // Update the wheel giving to it a value in degrees,
+        // getted from the percentage of the input value
+        // a.k.a. (value * 360) / 100
+        var degrees = range.value * 3.5999,
+            // Convert the degrees value to radians
+            rad = degrees * toRadians,
+            // Determine X and cut to 2 decimals
+            x = (Math.sin(rad) * r).toFixed(2),
+            // Determine Y and cut to 2 decimals
+            y = -(Math.cos(rad) * r).toFixed(2),
+            // The another half ring. Same as (deg > 180) ? 1 : 0
+            lenghty = window.Number(degrees > 180),
+            // Moveto + Arcto
+            descriptions = ['M', 0, 0, 'v', -r, 'A', r, r, 1, lenghty, 1, x, y, 'z'];
+        // Apply changes to the path
+        ring.setAttribute('d', descriptions.join(' '));
+        // Update the numeric display
+        text.textContent = range.value;
+      //console.log("draw"); 
+   }
+
+  function Draw(){
+    // Translate the center axis to a half of total size
+    ring.setAttribute('transform', 'translate(' + r + ', ' + r + ')');
+    // Bind the change event to the input
+    range.addEventListener('change', draw);
+    // Force to init the first time
+    draw();
+  }
+
+   var document, ring, range, text, Math, toRadians, r ,charging;
+   var light_green = "#F7F6F4";
+   var dark_green = "#76B13C";
+   
+   var light_blue = "#F7F4F6";
+   var dark_blue = "#0489B1";
+   
+   
+   for (var i= 0 ; i < 6 ; i++) {
+
+        document = window.document;
+        ring = document.getElementsByTagName('path')[i];
+        range = document.getElementsByTagName('input')[i];      
+        text = document.getElementsByTagName('text')[i];
+      charging = parseInt(document.getElementsByTagName('span')[i*3 + 2].innerHTML);
+        var circle1 = document.getElementsByTagName('circle')[i*2];
+        var circle2 = document.getElementsByTagName('circle')[i*2 + 1];
+
+      if (charging > 100){
+        ring.setAttribute( "fill", dark_green);
+        circle1.setAttribute( "fill", light_green);
+        circle2.setAttribute( "stroke", dark_green);
+        text.setAttribute("fill", dark_green);
+        
+      } else {
+	ring.setAttribute( "fill", dark_blue);
+        circle1.setAttribute( "fill", light_blue);
+        circle2.setAttribute( "stroke", dark_blue);
+        text.setAttribute("fill", dark_blue);
+        
+       
+     }
+
+        
+        
+        Math = window.Math;
+        toRadians = Math.PI / 180;
+        r = 100;
+        Draw();
+
+    }
+
+}(this));
+}
+window.setInterval(function(){Loop2()},1000);
+   </script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+package api
+
+import (
+  "github.com/stretchrcom/goweb"
+  "github.com/stretchrcom/goweb/context"
+  //"net/url"
+  "fmt"
+  //"time"
+  //"db"
+  "io"
+  "bytes"
+)
+
+
+type SimilarController struct {
+  Datas []*IceData
+}
+
+func populateStdin(str string) func(io.WriteCloser) {
+    return func(stdin io.WriteCloser) {
+        defer stdin.Close()
+        io.Copy(stdin, bytes.NewBufferString(str))
+    }
+}
+
+func (r *SimilarController) Read(brand string, ctx context.Context) error{
+
+  rowname := ctx.HttpRequest().URL.RawQuery 
+  ctx.HttpResponseWriter().Header().Set("Access-Control-Allow-Origin", "*")
+
+  
+  //newsclusters := db.ReadColumnsSimple("ice", "entitylist", rowname )
+  fmt.Println(rowname)
+  //output, _ := cmd.StdoutPipe()
+  //stdin, _ := cmd.StdinPipe()
+  
+  //out := <- output.String()	
+  fmt.Println(outC)
+
+  //fmt.Println(input)
+  data := new(IceData)
+  data.Output = []string{"ent1" , "ent2" , "ent3", "ent4"}
+  data.TimeStamp=[]string{"testing", "timestamp" }
+  return goweb.API.RespondWithData(ctx , data)
+ 
+  
+}

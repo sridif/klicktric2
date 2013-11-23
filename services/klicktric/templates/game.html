@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.png">
+
+    <title>Gameboard</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="navbar-static-top.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <!-- Static navbar -->
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Klicktric</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <!--ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul-->
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/game">Gameboard</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/api">Api Docs </a></li>
+        
+          </ul>
+          <ul class="nav navbar-nav pull-right" >
+           <li><a href="/">Logout</a></li>
+         </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+
+    <div class="container">
+
+ <div class="well col-md-2">      
+<a href="http://app.energimolnet.se/oauth2/authorize?client_id=greengridz&client_secret=bOdxOSyXFLnQIWe8wIhbdnW6&redirect_uri=http://www.klicktric.com/game&response_type=code">
+<img src="https://docs.google.com/drawings/d/1p-EVlpUSCjLiIgwdjOVZ24K6U5xH40AliayDG9vP2PA/pub?w=305&amp;h=381" style="width:160px;height:160px;">
+</a>
+ </div>
+
+ <div class="well col-md-2">
+<a  data-toggle="modal" data-target="#myModal">
+
+<img src="https://docs.google.com/drawings/d/1B51Z6i4OLBaFsr2zuni6CyDp_hM9H09Aw9eWuS5j96M/pub?w=449&amp;h=454" style="width:160px;height:160px;"> 
+</a>
+</div>
+    </div> <!-- /container -->
+
+<script>
+  var data = {{.Meterdata}};
+  split = data.split(']]');
+  day1 = split[0].replace('[[','');
+  day2 = split[1].replace('[[','');
+  day1split = day1.split(',');
+  day2split = day2.split(',');
+  Plotdata = [["hour" , "nov 1", "nov 2"]];
+  for (var i=0; i< day1split.length ; i++){
+    Plotdata.push([ i, parseFloat(day1split[i]) , parseFloat(day2split[i]) ])
+  }
+  
+
+   
+</script>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">November 2 vs 1 </h4>
+      
+      </div>
+      <div class="modal-body">
+                <div id="chart_div" style="width: 350px; height: 200px;"></div>
+        </div>
+  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+     </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+  
+  
+      google.load("visualization", "1", {packages:["corechart"]});
+  
+      google.setOnLoadCallback(drawChart); 
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(Plotdata);
+
+        var options = {
+          title: 'Daily comparisions'
+        };
+ 
+
+      
+      
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
+    </script>
+
+
+<!--script>
+//api/1.1/users/me/meters?access_token=8db074d5ba2678275c5324e7fe6c406e677e5da4
+    $.ajax({
+	url: 'http://app.energimolnet.se/api/1.1/users/me/meters?access_token=' + access_token ,
+	type: 'GET',
+	datatype: 'json',
+	
+	success: function(json){ handle2(json , i); }
+
+    }); 
+
+function handle2(json){
+  console.log(json);
+}
+
+</script-->
+<!--form id="getaccess" action="https://app.energimolnet.se/oauth2/grant?redirect_uri=http://www.klicktric.com/game" method="POST">
+<div><textarea name="client_id" value="greengridz">greengridz</textarea></div>
+<div><textarea name="client_secret"  value="bOdxOSyXFLnQIWe8wIhbdnW6">bOdxOSyXFLnQIWe8wIhbdnW6</textarea></div>
+<div><textarea name="grant_type" value="authorization_code">authorization_code</textarea></div>
+<div><textarea id="code" name="code"></textarea></div>
+<div><textarea name="redirect_uri">http://www.klicktric.com/game</textarea></div>
+<div><input type="submit" value="Save"></div>
+</form>
+<script>
+ 
+  var code =location.search.replace("?code=", "");
+  document.getElementById("code").innerHTML=code;
+  document.getElementById("getaccess").submit();
+
+</script -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+  </body>
+</html>

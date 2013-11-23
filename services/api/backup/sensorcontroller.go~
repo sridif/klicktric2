@@ -1,0 +1,60 @@
+package api
+
+import (
+  "github.com/stretchrcom/goweb"
+  "github.com/stretchrcom/goweb/context"
+  "net/url"
+  "fmt"
+  //"time"
+  "db" 
+  //"math/rand"
+  "github.com/streadway/simpleuuid"
+  "time"
+)
+
+
+type SenorData struct{
+
+  One []string
+  Two []string
+  Three []string
+  Four []string
+
+}
+type SensorController struct {
+  
+  Datas []*SenorData
+}
+
+func (r *SensorController) Read(brand string, ctx context.Context) error{
+
+  //rd := rand.New(rand.NewSource(time.Now().UnixNano()))
+  query := ctx.HttpRequest().URL.RawQuery 
+  ctx.HttpResponseWriter().Header().Set("Access-Control-Allow-Origin", "*")  
+  V, _ := url.ParseQuery(query)
+  id:=V.Get("id")
+  data:= V.Get("data") 
+   
+  //db.Write("qcoild", id , )  
+  now := time.Now()
+  uuid, _ := simpleuuid.NewTime(now)
+  fmt.Println(uuid.String()) 
+  fmt.Println(id)
+  fmt.Println(data)
+  data2 := new(SenorData)
+  if V.Get("type") == "read" {
+  
+
+
+    data2.One = db.ReadValues("swatbots", "qicoil", "1")
+    data2.Two = db.ReadValues("swatbots", "qicoil", "2")
+    data2.Three = db.ReadValues("swatbots", "qicoil", "3")
+    data2.Four = db.ReadValues("swatbots", "qicoil" , "4")
+  }
+  if V.Get("type") != "read"{
+    db.WriteValue("swatbots", "qicoil", id , string(uuid.Bytes()), data)
+  }
+
+  return goweb.API.RespondWithData(ctx , data2)
+
+}

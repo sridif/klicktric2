@@ -1,0 +1,63 @@
+package klicktric
+
+import (
+  "html/template"
+  "net/http"  
+  "net/url"
+  "log"
+  "io/ioutil"
+)
+
+func Api(rw http.ResponseWriter, req *http.Request){
+
+   t, _:= template.ParseFiles(Template + "api.html")
+   t.Execute(rw, nil) 
+  
+}  
+
+func Game(rw http.ResponseWriter, req *http.Request){
+
+   t, _:= template.ParseFiles(Template + "game.html")
+   t.Execute(rw, nil) 
+  
+}
+
+func Profile(rw http.ResponseWriter, req *http.Request){
+   ck, _ := req.Cookie("test1")
+   log.Println(ck.String() )
+   t, _:= template.ParseFiles(Template + "profile.html")
+   t.Execute(rw, nil) 
+ 
+}
+
+func fblogin(rw http.ResponseWriter, req *http.Request){
+
+    log.Println( req.URL)
+    //ck := new(http.Cookie)
+    //resp, err := http.Get("http://graph.facebook.com/debug_token?input_token=")
+
+
+    ck := &http.Cookie{Name : "test1", Value : "test1"}
+
+    http.SetCookie(rw, ck)
+
+        body, err := ioutil.ReadAll(req.Body)
+        if err != nil {
+                 log.Println(err)
+        }
+        params, err := url.ParseQuery(string(body))
+
+        log.Println(params)
+
+    t, _ := template.ParseFiles(Template + "profile.html")
+    t.Execute(rw,nil)
+    
+  
+}
+
+func BaseHandler(rw http.ResponseWriter, req *http.Request) {
+
+    t, _ := template.ParseFiles(Template + "home.html")
+    t.Execute(rw,nil)
+
+}		

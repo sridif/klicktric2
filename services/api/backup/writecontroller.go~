@@ -1,0 +1,37 @@
+package api
+
+import (
+  "github.com/stretchrcom/goweb"
+  "github.com/stretchrcom/goweb/context"
+  //"net/url"
+  "fmt"
+  //"time"
+  //"db"
+
+)
+
+
+type WWriteController struct {
+
+}
+
+func (r *WWriteController) Before(ctx context.Context) error {
+
+     // set a Things specific header
+     ctx.HttpResponseWriter().Header().Set("X-Things-Controller", "true")
+     fmt.Println("here w")
+     return nil
+
+}
+
+func (r *WWriteController) Read(brand string, ctx context.Context) error{
+   col_val := ctx.HttpRequest().URL.RawQuery 
+   fmt.Println(col_val)
+
+   fmt.Println("here")
+   data := new(IceData)
+   data.Output =  []string{"t3wt"}
+   data.TimeStamp=[]string{"test"}
+   return goweb.API.RespondWithData(ctx , data )
+
+}

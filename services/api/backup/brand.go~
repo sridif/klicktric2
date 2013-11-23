@@ -1,0 +1,28 @@
+package universum
+
+import (
+
+  "db"
+  "strings"
+  "fmt"
+
+)
+
+func GetPages(brandname string )(pages []string){
+  
+  values:= db.Read("universum","manualEntry",brandname)
+  fmt.Println("wowowo")
+  if (len(values)>0){
+    split := strings.Split(values[0],"\n")
+    for i:= range split {
+      split2 := strings.Split(split[i],"//")
+      if(len(split2) > 3){
+      pages = append(pages,split2[1],split2[0], split2[3], split2[2])
+      }
+    }
+
+  }
+
+  return
+
+}

@@ -19,7 +19,7 @@ import (
 )
 
 
-var addr = flag.String("addr", "api.swatbots.com:9924", "address of the service ")
+var addr = flag.String("addr", "test.swatbots.com:9921", "address of the service ")
 
 func StartService() {
 
@@ -48,6 +48,10 @@ func StartService() {
       case "api.swatbots.com" :
         fmt.Println("inside api")
         req.URL.Host = "localhost:9925"
+      
+      case "test.swatbots.com":
+         fmt.Println("Inside Test")
+         req.URL.Host = "localhost:9941"
       
       default :
         fmt.Println("inside defualt")
